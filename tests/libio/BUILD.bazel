@@ -1,0 +1,22 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+load("//:defines.bzl", "DEFINES")
+
+cc_test(
+    name = "get_line",
+    srcs = ["get_line.c"] + ["//:config"],
+    data = ["get_line.txt"],
+    local_defines = DEFINES + [
+        "TESTFILE=tests/libio/get_line.txt",
+    ],
+    deps = ["//lib/io"],
+)
+
+cc_test(
+    name = "uncompress",
+    srcs = ["uncompress.c"] + ["//:config"],
+    linkstatic = True,
+    local_defines = DEFINES + [
+        "TEST_BZIP2=1",
+    ],
+    deps = ["//lib/io"],
+)

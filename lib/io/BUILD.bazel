@@ -1,0 +1,29 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//:defines.bzl", "DEFINES")
+
+cc_library(
+    name = "io",
+    srcs = glob(
+        [
+            "**/*.c",
+            "**/*.h",
+        ],
+        exclude = [
+            "unix/**/*",
+            "win32/**/*",
+        ],
+    ) + select({
+        "@platforms//os:windows": glob(["win32/**/*"]),
+        "//conditions:default": glob(["unix/**/*"]),
+    }) + ["//:config"],
+    linkstatic = True,
+    local_defines = DEFINES,
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//:hdrs",
+        "@bzip2//:bz2",
+        "@xz//:lzma",
+        "@zlib",
+        "@zstd",
+    ],
+)

@@ -16,6 +16,7 @@ install-sh
 missing
 stamp-h1
 config.*
+!/config/*/config.h
 *.o
 *.lo
 *.la
@@ -50,3 +51,8 @@ tests/tar2sqfs/*.sh
 /list_files
 /sqfsbrowse
 /xattr_benchmark
+/bazel-out
+/bazel-bin
+/bazel-testlogs
+/bazel-squashfs-tools-ng
+/MODULE.bazel.lock
